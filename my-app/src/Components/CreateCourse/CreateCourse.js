@@ -18,7 +18,8 @@ export class CreateCourse extends Component {
       material_filename: "",
       thumbnail_filename: "",
       start_date: "",
-      end_date: ""
+      end_date: "",
+      certificate: ""
     }
     this.url = `http://localhost:4000/Courses/add`
     
@@ -39,11 +40,19 @@ export class CreateCourse extends Component {
   saveThumbnail = (e) => {
     this.state.thumbnail_image = e.target.files[0]
     this.state.thumbnail_filename = e.target.files[0].name
+    document.getElementById('thumbnail').innerHTML = this.state.thumbnail_filename
   }
 
   saveMaterial = (e) => {
     this.state.material = e.target.files[0]
     this.state.material_filename = e.target.files[0].name
+    document.getElementById('material').innerHTML = this.state.material_filename
+  }
+
+  
+  saveCertificate = (e) => {
+    this.state.certificate = e.target.files[0]
+    document.getElementById('certificate').innerHTML = this.state.certificate.name
   }
 
   saveStartDate = (e) => {
@@ -66,21 +75,34 @@ export class CreateCourse extends Component {
     // console.log(this.state.start_date)
     // console.log(this.state.material)
     // console.log(this.state.material_filename)
-
-    const new_course = {
-      name: this.state.name,
-      description: this.state.description,
-      enrollment_link: this.state.enrollment_link,
-      thumbnail_image: this.state.thumbnail_image,
-      material: this.state.material,
-      start_date: this.state.start_date,
-      end_date: this.state.end_date,
-      thumbnail_filename: this.state.thumbnail_filename
+    const formData= new FormData()
+    formData.append("files", this.state.material)
+    formData.append("files", this.state.thumbnail_image)
+    formData.append("files", this.state.certificate)
+    formData.append("file_names", this.state.material_filename)
+    formData.append("files", this.state.thumbnail_filename)
+    formData.append("name", this.state.name)
+    formData.append("desciption", this.state.description)
+    formData.append("enrollment_link", this.state.enrollment_link)
+    formData.append("start_date", this.state.start_date)
+    formData.append("end_date", this.state.end_date)
+    for (let [key, value] of formData.entries()) { 
+      console.log(key, value);
     }
-    axios.post(this.url, {new_course}).then(res => {
+    // const new_course = {
+    //   name: this.state.name,
+    //   description: this.state.description,
+    //   enrollment_link: this.state.enrollment_link,
+    //   thumbnail_image: this.state.thumbnail_image,
+    //   material: this.state.material,
+    //   start_date: this.state.start_date,
+    //   end_date: this.state.end_date,
+    //   thumbnail_filename: this.state.thumbnail_filename
+    // }
+    axios.post(this.url, formData).then(res => {
       console.log(res)
       console.log(res.data)
-    }).catch(err => console.log(err))
+    }).catch(err => console.log('This is the create course response error',err))
 
   }
 
@@ -95,7 +117,11 @@ export class CreateCourse extends Component {
           <input id="startDate" class="form-control" type="date" onChange={this.saveStartDate}/>
           <input id="endDate" class="form-control" type="date" onChange={this.saveEndDate}/>
           <Button variant="outlined" component="label">Upload Thumbnail Image<input type="file" hidden onChange={this.saveThumbnail}/></Button>
+          <Typography variant='body2' id='thumbnail' style={{textAlign:'center'}}>No file Attached</Typography>
           <Button variant="outlined" component="label">Upload Material<input type="file" hidden onChange={this.saveMaterial}/></Button>
+          <Typography variant='body2' id='material' style={{textAlign:'center'}}>No file Attached</Typography>
+          <Button variant="outlined" component="label">Upload Course Certificate<input type="file" hidden onChange={this.saveCertificate}/></Button>
+          <Typography variant='body2' id='certificate' style={{textAlign:'center'}}>No file Attached</Typography>
           <Button variant="contained" onClick={this.submitData}>Create</Button>
       </FormControl>    
       </>

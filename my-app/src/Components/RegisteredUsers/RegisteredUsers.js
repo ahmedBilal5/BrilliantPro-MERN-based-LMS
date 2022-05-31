@@ -5,8 +5,9 @@ import Divider from '@mui/material/Divider';
 import UserListItem from '../UserListItem/UserListItem';
 import { Button } from '@mui/material';
 import { Paper } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-const RegisteredUsers = () => {
+const RegisteredUsers = (props) => {
   const Users = []
   for (let i = 0; i < 25; i++){
       Users.push( <>
@@ -25,7 +26,9 @@ const RegisteredUsers = () => {
             {Users}
         </List>
     </Paper>
-    <Button style={{'marginTop':'1.5%' }} variant='contained' fullWidth> Add New User + </Button>
+    <Link to={'/admin/'+ props.course + '/addLearner'}>
+      <Button style={{'marginTop':'1.5%' }} variant='contained' fullWidth> Add New User + </Button>
+    </Link>
     </>
   )
 }

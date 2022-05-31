@@ -5,15 +5,18 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CourseGrid from '../CourseGrid/CourseGrid';
+import { useParams } from 'react-router-dom';
 import RegisteredUsers from '../RegisteredUsers/RegisteredUsers';
+// import useParams from 'react-router-dom';
 
 const CourseDetailedView = () => {
   const [value, setValue] = React.useState('Materials')
 
   const updateState = (event, newValue) => {
       setValue(newValue)
-
   }
+
+  let courseID = useParams()
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
@@ -31,8 +34,7 @@ const CourseDetailedView = () => {
       <TabPanel value="Materials">Materials</TabPanel>
       <TabPanel value="Assessments">Assessments</TabPanel>
       <TabPanel value="Settings">Settings</TabPanel>
-      <TabPanel value="Users"><RegisteredUsers></RegisteredUsers></TabPanel>
-
+      <TabPanel value="Users"><RegisteredUsers course={courseID}></RegisteredUsers></TabPanel>
 
     </TabContext>
   </Box>

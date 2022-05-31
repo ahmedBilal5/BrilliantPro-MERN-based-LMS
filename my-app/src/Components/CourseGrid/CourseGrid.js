@@ -22,7 +22,7 @@ export class CourseGrid extends Component {
   getCoursesInfo(){
     const course_info = []
     this.state.Courses.map(Course => {
-      course_info.push(<Grid item xs={4}><CourseCard name={Course.name} description={Course.description}/></Grid>)
+      course_info.push(<Grid item xs={4}><CourseCard name={Course.name} description={Course.description} image={Course.course_image} id={Course._id}/></Grid>)
     })
     console.log(course_info)
     return course_info

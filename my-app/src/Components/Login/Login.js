@@ -15,7 +15,7 @@ const Login = () => {
         <Button><Link to='/Signup'>Sign Up</Link></Button>
         <Typography variant="h4" gutterBottom component="div">Login</Typography>
         <FormControl maxWidth>
-          <TextField id="filled-basic" label="E-mail" variant="filled"></TextField>
+          <TextField id="filled-basic" label="Username" variant="filled"></TextField>
           <TextField id="filled-basic" label="Password" variant="filled" type='password'></TextField>
           <Button variant="contained">Login</Button>
         </FormControl>

@@ -11,7 +11,7 @@ const CourseCard = (props) => {
   return (
     <>
     <Card sx={{ maxWidth: 345 }}>
-        <CardMedia component="img" height="140" image="https://i0.wp.com/codingindian.com/wp-content/uploads/2022/02/Web-Development-Trends.jpg?fit=%2C&ssl=1"/>
+        <CardMedia component="img" height="140" image={'http://localhost:4000/' + props.image}/>
         <CardContent>
             <Typography variant='h5'>
                 {props.name}
@@ -21,7 +21,7 @@ const CourseCard = (props) => {
             </Typography>
         </CardContent>
         <CardActions>
-            <Link to='/admin/CourseID'>
+            <Link to={'/admin/' + props.id }>
                 <Button size='small'>Open Course</Button>
             </Link>
         </CardActions>

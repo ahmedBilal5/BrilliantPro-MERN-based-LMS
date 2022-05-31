@@ -6,6 +6,7 @@ import './App.css';
 import AdminPortal from './Components/AdminPortal/AdminPortal';
 import CourseDetailedView from './Components/CourseDetailedView/CourseDetailedView';
 import CreateCourse from './Components/CreateCourse/CreateCourse';
+import AddLearnerToCourse from './Components/AddLearnerToCourse/AddLearnerToCourse';
 function App() {
   return (
   <>
@@ -17,7 +18,8 @@ function App() {
       <Route path='/Signup' element={<Signup></Signup>}></Route>
       <Route path='/admin' element={<AdminPortal></AdminPortal>}></Route>
       <Route path='/admin/CreateCourse' element={<CreateCourse></CreateCourse>}></Route>
-      <Route path='/admin/CourseID' element={<CourseDetailedView></CourseDetailedView>}></Route>
+      <Route path='/admin/:CourseID' element={<CourseDetailedView></CourseDetailedView>}></Route>
+      <Route path='/admin/:CourseID/addLearner' element={<AddLearnerToCourse></AddLearnerToCourse>}></Route>
     </Routes>
   </BrowserRouter>
   </>
