@@ -3,17 +3,25 @@ import {BrowserRouter, Router, Routes,Route} from 'react-router-dom';
 import Login from './Components/Login/Login';
 import Signup from './Components/Signup/Signup';
 import './App.css';
-
+import AdminPortal from './Components/AdminPortal/AdminPortal';
+import CourseDetailedView from './Components/CourseDetailedView/CourseDetailedView';
+import CreateCourse from './Components/CreateCourse/CreateCourse';
 function App() {
   return (
-  //  <Login></Login>
+  <>
+  
+  
   <BrowserRouter>
     <Routes>
       <Route path='/Login' element={<Login></Login>}></Route>
       <Route path='/Signup' element={<Signup></Signup>}></Route>
+      <Route path='/admin' element={<AdminPortal></AdminPortal>}></Route>
+      <Route path='/admin/CreateCourse' element={<CreateCourse></CreateCourse>}></Route>
+      <Route path='/admin/CourseID' element={<CourseDetailedView></CourseDetailedView>}></Route>
     </Routes>
   </BrowserRouter>
-
+  </>
+  
   );
 }
 
