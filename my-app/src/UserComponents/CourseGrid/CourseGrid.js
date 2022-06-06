@@ -8,13 +8,16 @@ import axios from 'axios'
 
 
 export class CourseGrid extends Component {
-  url = `http://localhost:4000/Courses`
+  url = `http://localhost:4000/Courses/specific/`
+
   state = {
     Courses: []
   }
 
+
   componentDidMount(){
-    axios.get(this.url).then(res => {
+    const id = this.props.id
+    axios.get(this.url + id).then(res => {
       const courses = res.data
       this.setState({Courses: courses})
     })
@@ -28,15 +31,13 @@ export class CourseGrid extends Component {
     return course_info
   }
 
+
   render() {
     return (
       <>
       <Grid container spacing={2}>
          {this.getCoursesInfo()}
       </Grid>
-      <Link to='/admin/CreateCourse'>
-        <Button style={{'marginTop':'1.5%' }} variant='contained' fullWidth> Create New Course + </Button>
-      </Link>
       </>
     )
   }

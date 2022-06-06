@@ -82,7 +82,7 @@ export class CreateCourse extends Component {
     formData.append("file_names", this.state.material_filename)
     formData.append("files", this.state.thumbnail_filename)
     formData.append("name", this.state.name)
-    formData.append("desciption", this.state.description)
+    formData.append("description", this.state.description)
     formData.append("enrollment_link", this.state.enrollment_link)
     formData.append("start_date", this.state.start_date)
     formData.append("end_date", this.state.end_date)

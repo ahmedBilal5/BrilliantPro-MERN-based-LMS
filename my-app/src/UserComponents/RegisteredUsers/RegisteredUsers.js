@@ -38,24 +38,14 @@ const RegisteredUsers = (props) => {
     console.log('I have been called (updateSefl)')
     return flag
   }
-//changes-----------------------
-  // const getProgress = async (learner_id) => {
-  //   console.log('id', learner_id)
-  //   await axios.get('http://localhost:4000/Progresses/' + learner_id + '/' + CourseID).then(res => {
-  //     return(res.data.progress_value)
-  //   })
-  // }
-//changes-----------------------
 
   function Learners(){
     learners.map(learner => {
-      // console.log('names', learner._id)
-      // const Progress = getProgress(learner._id)
-      // console.log(Progress, 'Progress value')
+      console.log('names', learner.name)
       LearnersArray.push(
         <>
           <ListItem> 
-          <UserListItem name={learner.name} id={learner._id} progress={50} signal={updateSelf}></UserListItem>
+          <UserListItem name={learner.name} id={learner._id} progress='50' signal={updateSelf}></UserListItem>
           </ListItem>
           <Divider>
           </Divider>
@@ -90,7 +80,6 @@ const RegisteredUsers = (props) => {
     <Button style={{'marginTop':'1.5%' }} variant='contained' fullWidth> Add New User + 
     </Button>
     </Link>
-   
 
   </>
   )

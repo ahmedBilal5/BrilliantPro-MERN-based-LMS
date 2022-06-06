@@ -9,12 +9,13 @@ const cors = require('cors');
 const app = express();
 const CoursesRoute = require('./Routes/Courses');
 const LearnersRoute = require('./Routes/Learners')
+const ProgressesRoute = require('./Routes/Progresses')
 app.use(cors());
 app.use(bodyparser.json());
 app.use('/Assets',express.static('Assets'))
 app.use('/Learners', LearnersRoute)
-
 app.use('/Courses', CoursesRoute)
+app.use('/Progresses', ProgressesRoute)
 
 
 app.get('/',(req,res) => {

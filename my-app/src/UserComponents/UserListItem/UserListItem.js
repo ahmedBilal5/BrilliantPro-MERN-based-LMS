@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Avatar from '@mui/material/Avatar';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -12,16 +12,9 @@ const UserListItem = (props) => {
 
   //const [course, setCourse] = useState({})
   var the_learner = {}
-
   const { CourseID } = useParams()
   const url = 'http://localhost:4000/Courses/' + CourseID
-  const url2 = 'http://localhost:4000/Progresses/' + props.id + '/' + CourseID
-  const [progress, setProgress] = useState(0)
-
-  useEffect(() => {
-    axios.get(url2).then(res => setProgress(res.data.progress_value)).catch(err => console.log(err))
-  },[progress])
-
+  
   const Unenrol = async(p) => {
 
     await axios.get(url).then(res => {
@@ -54,10 +47,6 @@ const UserListItem = (props) => {
       console.log('Post Res', res)
     })
 
-    await axios.delete('http://localhost:4000/Progresses/'+props.id+'/'+CourseID).then(res => {
-      console.log('removed progress: ', res)
-    })
-
     props.signal()
   }
 
@@ -72,7 +61,7 @@ const UserListItem = (props) => {
     </ListItemText>
     {/* <div class="progress-bar" role="progressbar" style={{"width": "15%",'marginRight':'4%', "border":"1px solid grey"}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div> */}
     <div class="progress"  style={{"width": "15%",'marginRight':'4%'}}>
-    <div class="progress-bar" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100" style={{"width": progress + '%'}}>{progress}%</div>
+    <div class="progress-bar" role="progressbar" aria-valuenow={props.progress} aria-valuemin="0" aria-valuemax="100" style={{"width": props.progress + '%'}}>{props.progress}%</div>
     </div>
     {/* <CircularProgress sx={{'marginRight':'4%'}} variant="determinate" value='75'/> */}
     <Button  onClick={() => Unenrol(props.id)}  variant="outlined"> Unenrol </Button>

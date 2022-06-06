@@ -10,9 +10,23 @@ router.get('/', async (req, res) => {
     learner.find(req.query).then(data => {res.json(data)}).catch(err => {res.json({message: err})})
 })
 
+router.get('/count', async (req,res) => {
+    await learner.countDocuments().then(data => {
+        console.log('data', data)
+        res.json(data)
+    }).catch(err => res.json({message: err}))
+})
+
+router.post('/login', async (req, res) => {
+    console.log('at login', req.body.username, req.body.password)
+    learner.find({username: req.body.username, password: req.body.password}).then(data => res.json(data)).catch(err => res.json({error: err}))
+})
+
+
 router.get('/:id', async (req, res) => {
     learner.findById(req.params.id).then(data => {res.json(data)}).catch(err => {res.json({message: err})})
 })
+
 
 
 router.post('/Signup', upload.none(),(req, res) => {
@@ -26,6 +40,7 @@ router.post('/Signup', upload.none(),(req, res) => {
     })
     Learner.save().then(data => {res.json(data)}).catch(err => {res.json({message: err})})
 })
+
 
 
 

@@ -5,11 +5,13 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CourseGrid from '../CourseGrid/CourseGrid';
+import { useParams } from 'react-router-dom'
 import Dashboard from '../Dashboard/Dashboard';
 
-export default function AdminPortal() {
-  const [value, setValue] = React.useState('Dashboard');
 
+export default function UserPortal() {
+  const [value, setValue] = React.useState('Dashboard');
+  const { UserID } = useParams() 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -26,7 +28,7 @@ export default function AdminPortal() {
         </Box>
 
         <TabPanel value="Dashboard"><Dashboard></Dashboard></TabPanel>
-        <TabPanel value="Courses"><CourseGrid></CourseGrid></TabPanel>
+        <TabPanel value="Courses"><CourseGrid id={UserID}></CourseGrid></TabPanel>
      
       </TabContext>
     </Box>

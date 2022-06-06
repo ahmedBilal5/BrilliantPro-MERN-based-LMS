@@ -14,11 +14,17 @@ const QuestionSchema = new mongoose.Schema({
 })
 
 const AssessmentSchema = new mongoose.Schema({
+    name: {
+        type: String
+    },
     time:{
         type: Number
     },
     questions:{
         type: [QuestionSchema]
+    },
+    passing_criteria:{
+        type: Number
     }
  })
 
@@ -88,10 +94,23 @@ const CourseSchema =  new mongoose.Schema({
     }
  })
 
+ const ProgressSchema = new mongoose.Schema({
+     learner_id: {
+        type: String
+     },
+     course_id: {
+        type: String
+     },
+     progress_value: {
+        type: Number
+     }
+ })
+
 
 module.exports = {
     Learner :mongoose.model('Learner', LearnerSchema),
     Course: mongoose.model('Course', CourseSchema),
     Assessment: mongoose.model('Assessment', AssessmentSchema),
-    Question: mongoose.model('Question', QuestionSchema)
+    Question: mongoose.model('Question', QuestionSchema),
+    Progress: mongoose.model('Progress',ProgressSchema)
 }
