@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Button} from '@mui/material'
+import { Button, List, ListItem, ListItemText, Paper, Divider} from '@mui/material'
 
 const Assessments = () => {
    const { CourseID } = useParams()
@@ -21,9 +21,14 @@ const Assessments = () => {
        Assessments.map(Assessment => {
            AssessmentArray.push(
                <>
-                <Link to={'/'+UserID+'/' + CourseID + '/' + Assessment._id}>
-                    <Button variant="outlined" style={{'width': '80%', 'marginLeft': '10%', 'marginTop': '2%'}}> {Assessment.name}</Button>
+                 <ListItem>
+                <ListItemText>
+                <Link style={{'width': '80%'}} to={'/'+UserID+'/' + CourseID + '/' + Assessment._id}>
+                  {Assessment.name}
                 </Link>
+                </ListItemText>
+                </ListItem>
+               <Divider></Divider>
                </>
            )
        })
@@ -35,7 +40,12 @@ const Assessments = () => {
 
   return (
     <>
-    {showAssessments()}
+    <Paper style={{height:'70vh', maxHeight:'70vh', overflow:'auto'}}>
+        <List>
+        {showAssessments()}
+        </List>
+    </Paper>
+    
     </>
   )
 }

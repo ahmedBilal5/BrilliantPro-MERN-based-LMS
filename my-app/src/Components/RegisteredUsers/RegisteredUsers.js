@@ -78,7 +78,7 @@ const RegisteredUsers = (props) => {
 
   return (
     <>
-    <Paper style={{maxHeight: 450, overflow: 'auto'}}>
+    <Paper style={{height: '60vh',maxHeight: '60vh', overflow: 'auto'}}>
         <List>
             {Learners()}
         </List>
@@ -87,7 +87,7 @@ const RegisteredUsers = (props) => {
 
 
     <Link to={'/admin/addLearner/'+ CourseID }> 
-    <Button style={{'marginTop':'1.5%' }} variant='contained' fullWidth> Add New User + 
+    <Button style={{'marginTop':'2%' }} variant='contained' fullWidth> Add New User + 
     </Button>
     </Link>
    

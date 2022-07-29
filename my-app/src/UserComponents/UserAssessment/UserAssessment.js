@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Typography, Paper, Button } from '@mui/material'
+import { Typography, Paper, Button, Collapse } from '@mui/material'
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 import Assessments from '../Assessments/Assessments'
@@ -13,6 +13,9 @@ const UserAssessment = () => {
     const [ assessment, setAssessment ] = useState({})
     const [questions, setQuestions] = useState([])
     const [result, setResult] = useState(null)
+    const [calculated, setCalculated] = useState(false)
+    const [time, setTime] = useState('00:00:00')
+    const [end, setEnd] = useState(false)
     // const [time, setTime] = useState(0)
     // const [rem, setRem] = useState(0)
 
@@ -23,6 +26,7 @@ const UserAssessment = () => {
         axios.get(url).then(res => {
             console.log('This is the respose data', res.data)
             setAssessment(res.data)
+            setTime(res.data.time)
             console.log(assessment)
         }).catch(err => console.log(err))
 
@@ -31,8 +35,7 @@ const UserAssessment = () => {
             setQuestions(res.data)
             console.log('questions', questions)
         }).catch(err => console.log(err))
-    }, [])
-
+    }, [calculated, time, end])
 
 
 
@@ -84,7 +87,7 @@ const UserAssessment = () => {
         const ResultArray = []
         questions.map(question => {
             const elem = document.getElementsByName(question.statement)
-            
+            console.log('total questions', elem.length)
             for(let i = 0; i < elem.length; i++) {
                 if(elem[i].checked){
                     console.log(elem[i].value)
@@ -92,14 +95,13 @@ const UserAssessment = () => {
                         console.log('Reached the truth value: ', elem[i].value)
                         ResultArray.push(true)
                     }
-                    else{
-                        ResultArray.push(false)
-                    }
-                }    
+                    
+                }
+              
             }
         })
         const trues = countOccurrences(ResultArray, true)
-        const percentage = (trues/(ResultArray.length))*100
+        const percentage = (trues/(questions.length))*100
         var message = ''
         var reward = 0
         if (percentage >= assessment.passing_criteria){
@@ -117,11 +119,15 @@ const UserAssessment = () => {
         //     console.log('updating progress', res)
         // }).catch(err => console.log(err))
         updateProgress(body)
-
+        setCalculated(true)
+        setEnd(true)
+        window.scrollTo(0,0)
         return (<>
-                <Typography variant='h6'style={{textAlign:'center', paddingBottom: '2%',paddingRight: '4%'}}> <b>Your score is:</b> {trues}/{ResultArray.length} </Typography>
+                <div style={{backgroundColor: '#1976d2', color:"white"}}>
+                <Typography variant='h6'style={{textAlign:'center', paddingBottom: '2%',paddingRight: '4%'}}> <b>Your score is:</b> {trues}/{questions.length} </Typography>
                 <Typography variant='h6'style={{textAlign:'center', paddingBottom: '2%',paddingRight: '4%'}}> <b>Percentage:</b> {percentage}</Typography>
                 <Typography variant='h6'style={{textAlign:'center', paddingBottom: '2%',paddingRight: '4%'}}> <b>Result:</b> {message} </Typography>
+                </div>
                 </>)
     }
 
@@ -130,19 +136,22 @@ const UserAssessment = () => {
     }
   return (
      <>
+     {result}
      <Typography variant='h4' style={{textAlign:'center', paddingTop: '2%', paddingBottom: '2%',paddingRight: '4%'}}>Learner Assessment: {assessment.name}</Typography>
      <div style={{'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'center', 'gap': '20%'}}>
         <Typography variant='h6'>Time: {assessment.time} mins</Typography>
         <Typography variant='h6'>Passing Criteria: {assessment.passing_criteria}%</Typography>
-        <Timer time={assessment.time}></Timer>
+        <Timer time={time} end={end}></Timer>
      </div>
      <>
      {
          getQuestions()
      }   
      </> 
-     <Button variant="outlined" style={{width:'96%', margin: "0% 2% 2% 2%"}} onClick={() => setResult(CalculateResult())}> Submit Assessment</Button>
-     {result}
+     <Collapse in={!calculated}>
+        <Button variant="outlined" style={{width:'96%', margin: "0% 2% 2% 2%"}} onClick={() => setResult(CalculateResult())}> Submit Assessment</Button>
+     </Collapse>
+     
      </> 
   )
 }

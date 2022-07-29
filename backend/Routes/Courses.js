@@ -56,6 +56,7 @@ router.post('/add',upload.array("files"),async (req,res) => {
     // console.log(req.body.name,
     // // assessments: req.body.assessments,
     // // learners: req.body.learners,
+
     // [req.files[0].path],
     // req.body.start_date ,
     // req.body.end_date,
@@ -165,10 +166,10 @@ router.put('/:id/learners', async (req, res) => {
     console.log('learnersnew ', C.learners)
 
     //console.log(C)
-    await C.save().then(data => {res.json(data)}).catch(err => {res.json({message: err})})
+    await C.save().then(() => res.send('done')).catch(err => {res.json({message: err})})
 })
 
-
+  
 
 
 router.post('/:id/addMaterial',upload.array("files"),async (req,res) => {
@@ -223,6 +224,19 @@ router.put('/:id/addAssessment', async (req,res) => {
   await C.save().then(data => {res.json(data)}).catch(err => {res.json({message: err})})
 })
 
+router.put('/:id/removeAssessment', async (req, res) => {
+  const assessment_id = req.body._id
+  console.log(assessment_id)
+  const C = await course.findOne({_id: req.params.id})
+  for (let i = 0; i < C.assessments.length; i++){
+    if (C.assessments[i]._id == req.body._id){
+      await C.assessments.splice(i,1)
+    }
+  }
+  C.save().then(() => res.send('done')).catch(err => {res.json({message: err})})
+  
+
+})
 router.get('/:id/Assessments', async (req, res) => {
   await course.findById(req.params.id).then(Course => {res.json(Course.assessments)}).catch(err => res.json({message: err}))
 })

@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import {BrowserRouter, Router, Routes,Route} from 'react-router-dom';
+import {BrowserRouter, Router, Routes,Route, Link} from 'react-router-dom';
 import Login from './UserComponents/Login/Login';
 import Signup from './UserComponents/Signup/Signup';
 import './App.css';
@@ -13,13 +13,27 @@ import UserPortal from './UserComponents/UserPortal/UserPortal';
 import CourseDetailedViewUser from './UserComponents/CourseDetailedViewUser/CourseDetailedViewUser';
 import UserAssessment from './UserComponents/UserAssessment/UserAssessment'
 import ResultFail from './UserComponents/ResultFail/ResultFail';
+import Home from './Components/Home/Home';
+import { AppBar } from '@mui/material';
+import { Toolbar, Typography } from '@mui/material';
+
 function App() {
   return (
   <>
-  
+  <AppBar variant='static' position='sticky'>
+  <Toolbar variant='dense'>
+    <i class="fa fa-lightbulb-o fa-spin fa-5x" aria-hidden="true"></i>
+    {/* <Link to='/'> */}
+      <Typography variant="h6" color="inherit" component="div">
+      BrillantPro
+      </Typography>
+    {/* </Link> */}
+  </Toolbar>
+  </AppBar>
   
   <BrowserRouter>
     <Routes>
+      <Route path='/' element={<Home></Home>}></Route>
       <Route path='/Login' element={<Login></Login>}></Route>
       <Route path='/Signup' element={<Signup></Signup>}></Route>
       <Route path='/admin' element={<AdminPortal></AdminPortal>}></Route>
@@ -34,6 +48,7 @@ function App() {
       <Route path='/:UserID/:CourseID/:AssessmentID/ResultFail' element={<ResultFail></ResultFail>}></Route>
     </Routes>
   </BrowserRouter>
+
   </>
   
   );

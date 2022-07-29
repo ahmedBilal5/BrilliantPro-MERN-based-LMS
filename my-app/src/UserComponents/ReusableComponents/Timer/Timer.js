@@ -22,7 +22,12 @@ const Timer = (props) => {
     const startTimer = (e) => {
         let { total, hours, minutes, seconds } 
                     = getTimeRemaining(e);
-        if (total >= 0) {
+                    
+        if(props.end === true){
+            setEnd(true)
+        }
+        
+        else if (total >= 0) {
             
             // update the timer
             // check if less than 10 then we need to 
@@ -33,6 +38,7 @@ const Timer = (props) => {
                 + (seconds > 9 ? seconds : '0' + seconds)
             )
         }
+       
         else{
             clearTimer()
             setEnd(true)
@@ -70,7 +76,7 @@ const Timer = (props) => {
     }
     useEffect(() => {
         clearTimer(getDeadTime());
-    }, [props,end])
+    }, [props])
 
     const onClickReset = () => {
         clearTimer(getDeadTime());

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CourseCard from '../CourseCard/CourseCard'
 import Grid from '@mui/material/Grid';
-import { Button } from '@mui/material';
+import { Button, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 
@@ -31,11 +31,14 @@ export class CourseGrid extends Component {
   render() {
     return (
       <>
-      <Grid container spacing={2}>
-         {this.getCoursesInfo()}
-      </Grid>
+      <Paper style={{height: '60vh', maxHeight: '60vh', overflow:'auto'}}>
+        <Grid container spacing={2}>
+          {this.getCoursesInfo()}
+        </Grid>
+      </Paper>
+      
       <Link to='/admin/CreateCourse'>
-        <Button style={{'marginTop':'1.5%' }} variant='contained' fullWidth> Create New Course + </Button>
+        <Button style={{'marginTop':'2%' }} variant='contained' fullWidth> Create New Course + </Button>
       </Link>
       </>
     )

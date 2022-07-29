@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CourseCard from '../CourseCard/CourseCard'
 import Grid from '@mui/material/Grid';
-import { Button } from '@mui/material';
+import { Button, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 
@@ -35,9 +35,11 @@ export class CourseGrid extends Component {
   render() {
     return (
       <>
+      <Paper style={{height: '70vh', maxHeight: '70vh', overflow:'auto'}}>
       <Grid container spacing={2}>
          {this.getCoursesInfo()}
       </Grid>
+      </Paper>
       </>
     )
   }

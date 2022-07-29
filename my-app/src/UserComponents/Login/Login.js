@@ -5,21 +5,22 @@ import { Grid } from '@mui/material';
 import { Button } from '@mui/material';
 import { Typography } from '@mui/material'; 
 import { Link } from 'react-router-dom';
-import { FormControl } from '@mui/material'
+import { FormControl, Alert, Collapse } from '@mui/material'
 import axios from 'axios'
 import {useNavigate }from 'react-router-dom'
-import './Login.css'
+import '../Login/Login.css'
 
 const Login = () => {
   
-  const [user, setUser] = useState({})
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [pass, setPass] = useState(false)
+  const [err, setErr] = useState(false)
+
   let navigate = useNavigate()
   useEffect(() => {
 
-  }, [])
+  }, [err, password, username])
 
   const updatePassword = (e) =>{
     setPassword(e.target.value)
@@ -30,11 +31,12 @@ const Login = () => {
   }
 
   const submit = async () => {
-    const body = {
+    
+    const body ={
       username: username,
       password: password
     }
-    console.log(body)
+
     // await axios.post('http://localhost:4000/Learners/login', body).then(res => {
     //   console.log('res data password', res.data[0].password)
     //   console.log('res data username', res.data[0].username)
@@ -56,19 +58,20 @@ const Login = () => {
     //   console.log('userid', user._id)
     // })
 
-    const res = await axios.post('http://localhost:4000/Learners/login', body)
-    if (body.password === res.data[0].password && body.username === res.data[0].username){
-      console.log('here')
-      await setPass(true)
+    const res = await axios.post('http://localhost:4000/Learners/login', {username: username, password: password})
+    console.log('res', res.data)
+    if (res.data.length != 0 && password === res.data[0].password && username === res.data[0].username){
+      console.log('hereherhereh')
+      setPass(true)
+      setErr(false)
       console.log(pass)
       navigate('/'+ res.data[0]._id)
     }
-    // if (pass === true){
-    //     //window.location = 'http://localhost:3000/' + res.data[0]._id
-        
-    //   }
-
-
+    else{
+      setErr(true)
+      console.log('was here')
+    }
+    
 
     // if (user.length === 1 && user.username === username && user.password === password){
     //   document.getElementById('show').innerHTML = <Link to={'/:UserID'}><Button variant='outlined'> Go to Home </Button></Link>
@@ -93,7 +96,13 @@ const Login = () => {
           <Button variant="contained" onClick={submit}>Login</Button>
           <div id='show'></div>
         </FormControl>
+        <Collapse in={err} style={{marginTop: '1%'}}>
+          <Alert sx={{ mb: 2 }} severity='error'>
+          No matching user. Please try again.  
+          </Alert>
+        </Collapse>
     </Grid>
+ 
     </>
   )
 }

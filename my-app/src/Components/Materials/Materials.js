@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, List, ListItem, Divider, ListItemText,Typography } from '@mui/material'
+import { Button, List, ListItem, Divider, ListItemText,Typography, Paper } from '@mui/material'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
@@ -89,12 +89,15 @@ const Materials = () => {
 
   return (
     <>
-    <List>
-        {extractMaterial()}
-    </List>
-    <Button variant="outlined" component="label" style={{'width': '80%', 'marginLeft': '10%', 'marginTop': '5%'}}>Upload new Material<input type="file" hidden onChange={uploadFile}/></Button>
-    <Typography variant='body2' id='material' style={{'marginBottom': '2%', 'textAlign': 'center'}}>No file Attached</Typography>
-    <Button variant="contained" component="label" style={{'width': '80%', 'marginLeft': '10%'}} onClick={addNew}>Save</Button>
+    <Paper style={{height: '40vh', maxHeight: '40vh',overflow: 'auto'}}>
+        <List>
+            {extractMaterial()}
+        </List>
+    </Paper>
+   
+    <Button variant="outlined" component="label" style={{'width': '100%', 'marginTop': '5%'}}>Upload new Material<input type="file" hidden onChange={uploadFile}/></Button>
+    <Typography variant='body2' id='material' style={{'marginBottom': '2%', 'textAlign': 'center', color:"#1976d2"}}>No file Attached</Typography>
+    <Button variant="contained" component="label" style={{'width': '100%'}} onClick={addNew}>Save</Button>
     </>
     
   )

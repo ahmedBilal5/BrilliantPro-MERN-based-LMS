@@ -6,6 +6,8 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CourseGrid from '../CourseGrid/CourseGrid';
 import Dashboard from '../Dashboard/Dashboard';
+import { AppBar } from '@mui/material';
+import { Toolbar, Typography } from '@mui/material';
 
 export default function AdminPortal() {
   const [value, setValue] = React.useState('Dashboard');
@@ -15,7 +17,11 @@ export default function AdminPortal() {
   };
 
   return (
+    <>
+     
+
     <Box sx={{ width: '100%', typography: 'body1' }}>
+
       <TabContext value={value}>
         
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -27,8 +33,12 @@ export default function AdminPortal() {
 
         <TabPanel value="Dashboard"><Dashboard></Dashboard></TabPanel>
         <TabPanel value="Courses"><CourseGrid></CourseGrid></TabPanel>
-     
+        
       </TabContext>
     </Box>
+    </>
+   
+
+  
   );
 }

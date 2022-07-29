@@ -2,10 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
 const cors = require('cors');
+const dotenv = require('dotenv')
+dotenv.config()
 
-
-
-
+//onst CONNECTION_STR = "mongodb+srv://ahmed:ahmed123@cluster0.fmo1x.mongodb.net/?retryWrites=true&w=majority"
+const PORT = process.env.PORT || 4000;
 const app = express();
 const CoursesRoute = require('./Routes/Courses');
 const LearnersRoute = require('./Routes/Learners')
@@ -23,8 +24,9 @@ app.get('/',(req,res) => {
 })
 
 
-mongoose.connect('mongodb://localhost:27017/LMS-db', () => {
+mongoose.connect(process.env.CONNECTION_STR, () => {
     console.log('connected to database!')
+    app.listen(PORT, () => (console.log('Here we go!')))
 })
 
-app.listen(4000, () => (console.log('Here we go!')))
+

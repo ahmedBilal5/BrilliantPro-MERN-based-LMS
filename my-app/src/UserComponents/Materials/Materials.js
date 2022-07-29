@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, List, ListItem, Divider, ListItemText,Typography } from '@mui/material'
+import {  List, ListItem, Divider, ListItemText,Paper } from '@mui/material'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
@@ -55,14 +55,7 @@ const Materials = () => {
         }
    }
 
-   const rerender = () => {
-       if (flag === true){
-           setFlag(false)
-       }
-       else{
-           setFlag(true)
-       }
-   }
+  
 
 //    const uploadFile = (e) => {
 //        uploadedFile = e.target.files[0]
@@ -89,9 +82,11 @@ const Materials = () => {
 
   return (
     <>
+    <Paper style={{height: '70vh', maxHeight: '70vh',overflow: 'auto'}}>
     <List>
         {extractMaterial()}
     </List>
+    </Paper>
     {/* <Button variant="contained" component="label" style={{'width': '60%', 'marginLeft': '20%'}}>Upload new Material<input type="file" hidden onChange={uploadFile}/></Button>
     <Typography variant='body2' id='material' style={{'marginBottom': '2%', 'textAlign': 'center'}}>No file Attached</Typography>
     <Button variant="contained" component="label" style={{'width': '80%', 'marginLeft': '10%'}} onClick={addNew}>Save</Button> */}

@@ -41,21 +41,30 @@ const Dashboard = () => {
 
   const getCourseProgresses = () => {
     merge()
-    MergedArray.map((progress,i) => {
-      ProgressArray.push(
+    if (MergedArray.length >= 1){
+      MergedArray.map((progress,i) => {
+        ProgressArray.push(
+          <>
+             <Paper elevation={1} style={{'display': 'flex', 'flexDirection': 'row', 'marginTop': '2%'}}>
+                <ListItemText>
+                    <Typography variant='h6'> {progress.name} </Typography>
+                </ListItemText>
+                  <div class="progress"  style={{"width": "70%",'marginRight':'4%', 'marginTop':'1%'}}>
+                    <div class="progress-bar" role="progressbar" aria-valuenow={progress.progress_value} aria-valuemin="0" aria-valuemax="100" style={{"width": progress.progress_value + '%'}}>{progress.progress_value}%</div>
+                </div>
+              </Paper>
+          </>
+        )
+      })
+      return ProgressArray
+    }
+    else{
+      return(
         <>
-           <Paper elevation={1} style={{'display': 'flex', 'flexDirection': 'row', 'marginTop': '2%'}}>
-              <ListItemText>
-                  <Typography variant='h6'> {progress.name} </Typography>
-              </ListItemText>
-                <div class="progress"  style={{"width": "70%",'marginRight':'4%', 'marginTop':'1%'}}>
-                  <div class="progress-bar" role="progressbar" aria-valuenow={progress.progress_value} aria-valuemin="0" aria-valuemax="100" style={{"width": progress.progress_value + '%'}}>{progress.progress_value}%</div>
-              </div>
-            </Paper>
+        <Typography variant='h5' style={{textAlign: 'center'}}>You have not been added to any courses yet.</Typography>
         </>
       )
-    })
-    return ProgressArray
+    }
   } 
 
 
