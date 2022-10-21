@@ -1,6 +1,6 @@
-## Web-Programming-Project-LMS
+## BrilliantPro
 
-### This is web-based learning management sytem. It has both teacher and student modules.
+### This is a MERN stack based learning management sytem by the name of BrilliantPro. It has both teacher and student modules.
 
 #### Here are some features:
   ##### Students can attempt examinations and quizzes in real time.
