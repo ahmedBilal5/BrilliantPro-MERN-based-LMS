@@ -1,3 +1,3 @@
 //const url = "https://brilliantpro-backend.herokuapp.com/"
-const _URL = "http://localhost:4000/"
+const _URL = "https://brilliantpro-backend.herokuapp.com/"
 export { _URL };
