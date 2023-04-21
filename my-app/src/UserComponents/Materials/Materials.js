@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import {  List, ListItem, Divider, ListItemText,Paper } from '@mui/material'
+import {  List, ListItem, Divider, ListItemText, Paper, Typography, LinearProgress } from '@mui/material'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import {_URL} from '../../url.js'
 
 const Materials = () => {
    
    const { CourseID } = useParams()
-   const url ='http://localhost:4000/Courses/'
+   const url =_URL + 'Courses/'
    const [materials, setMaterials] = useState([])
    const [course, setCourse] = useState({})
-   const [flag, setFlag] = useState(false)
-   var uploadedFile = ''
+   const [loading, setLoading] = useState(false)
    const MaterialArray = []
 
 
    useEffect(() => {
-        
         axios.get(url + CourseID).then(res => {
             const materials = res.data.materials
             console.log(materials)
+            setLoading(false)
             setMaterials(materials)
             setCourse(res.data)
             console.log(course)
             console.log('learners', course.learners)
-        })
 
+        })
+        setLoading(true)
    }, 
-   [flag])
+   [])
 
    const extractMaterial = () => {
        materials.map((mat)=> {
@@ -35,7 +36,7 @@ const Materials = () => {
                 <ListItem>
                 <ListItemText>
                     {/* <Typography variant='body1'>{props.name}</Typography> */}
-                    <a href={'http://localhost:4000/'+ mat} download >{extractString(mat)}</a>
+                    <a href={mat} download >{extractString(mat)}</a>
                 </ListItemText>   
                 {/* <Button onClick={() => removeMaterial(mat)}> Remove </Button> */}
                 </ListItem>
@@ -47,11 +48,17 @@ const Materials = () => {
        MaterialArray
     )
    }
-
+    function isCharDigit(n){
+        return !!n.trim() && n > -1;
+    }
    const extractString = (str) => {
         for (let i = 0; i < str.length; i++){
-            if (str[i] === '-')
-                return str.substring(i+1)
+            if (isCharDigit(str[i]) && (str[i+1].toLowerCase() !== str[i+1].toUpperCase()))
+            {
+                var substr = str.substring(i+1);
+                return substr.replace(/%20/g, " ")
+            }
+
         }
    }
 
@@ -82,16 +89,23 @@ const Materials = () => {
 
   return (
     <>
-    <Paper style={{height: '70vh', maxHeight: '70vh',overflow: 'auto'}}>
-    <List>
-        {extractMaterial()}
-    </List>
-    </Paper>
-    {/* <Button variant="contained" component="label" style={{'width': '60%', 'marginLeft': '20%'}}>Upload new Material<input type="file" hidden onChange={uploadFile}/></Button>
-    <Typography variant='body2' id='material' style={{'marginBottom': '2%', 'textAlign': 'center'}}>No file Attached</Typography>
-    <Button variant="contained" component="label" style={{'width': '80%', 'marginLeft': '10%'}} onClick={addNew}>Save</Button> */}
+    {loading ? 
+     <div>
+     <Typography variant='h5' style={{textAlign:'center'}}>Please wait as the materials load</Typography>
+     <LinearProgress />
+    </div>:
+    <>
+        <Paper style={{height: '70vh', maxHeight: '70vh',overflow: 'auto'}}>
+        <List>
+            {extractMaterial()}
+        </List>
+        </Paper>
+        {/* <Button variant="contained" component="label" style={{'width': '60%', 'marginLeft': '20%'}}>Upload new Material<input type="file" hidden onChange={uploadFile}/></Button>
+        <Typography variant='body2' id='material' style={{'marginBottom': '2%', 'textAlign': 'center'}}>No file Attached</Typography>
+        <Button variant="contained" component="label" style={{'width': '80%', 'marginLeft': '10%'}} onClick={addNew}>Save</Button> */}
     </>
-    
+    }
+    </>
   )
 }
 

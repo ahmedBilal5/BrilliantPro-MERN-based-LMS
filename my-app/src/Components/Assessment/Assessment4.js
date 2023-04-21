@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Typography, Paper } from '@mui/material'
 import {useEffect, useState} from 'react'
 import axios from 'axios'
-import Assessments from '../Assessments/Assessments'
+import {_URL} from '../../url.js'
 
 
 const Assessment = () => {
@@ -15,8 +15,8 @@ const Assessment = () => {
     // var assessment = {}
     // var questions = []
 
-    const url = 'http://localhost:4000/Courses/'+ CourseID + '/Assessments/' + AssessmentID
-    const url2 = 'http://localhost:4000/Courses/'+ CourseID + '/Assessments/' + AssessmentID + '/qs'
+    const url = _URL + 'Courses/'+ CourseID + '/Assessments/' + AssessmentID
+    const url2 = _URL + 'Courses/'+ CourseID + '/Assessments/' + AssessmentID + '/qs'
     
     useEffect(() => {
         axios.get(url).then(res => {

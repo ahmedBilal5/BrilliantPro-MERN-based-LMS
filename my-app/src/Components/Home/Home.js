@@ -63,7 +63,7 @@ const Home = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography variant='body1'>
-           Here are the steps you can follow to get a demo of some of BrilliantPro's features:
+           Here are steps you can follow to get a demo of some of BrilliantPro's features:
            <ol>
                 <li>Sign up as a student <Link to='/Signup'>here</Link>.</li>
                 <li>Before you log in, enter the teacher mode <Link to='/admin'>here</Link>.</li>

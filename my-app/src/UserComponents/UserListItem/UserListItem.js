@@ -6,14 +6,14 @@ import { Button } from '@mui/material'
 import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import {_URL} from '../../url.js'
 
 const UserListItem = (props) => {
 
   //const [course, setCourse] = useState({})
   var the_learner = {}
   const { CourseID } = useParams()
-  const url = 'http://localhost:4000/Courses/' + CourseID
+  const url = _URL + 'Courses/' + CourseID
   
   const Unenrol = async(p) => {
 
@@ -43,7 +43,7 @@ const UserListItem = (props) => {
     //   console.log('delres', res)
     // })
     
-    await axios.put('http://localhost:4000/Courses/'+CourseID+'/learners', the_learner).then(res => {
+    await axios.put(_URL + 'Courses/'+CourseID+'/learners', the_learner).then(res => {
       console.log('Post Res', res)
     })
 

@@ -7,10 +7,11 @@ import { FormControl } from '@mui/material'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import '../Signup/Signup.css'
+import {_URL} from '../../url.js'
 
 const Signup = () => {
   
-  const url = `http://localhost:4000/Learners/Signup`
+  const url = _URL +`Learners/Signup`
   const [username, setUsername] = React.useState("")
   const [email, setEmail] = React.useState("")
   const [name, setName] = React.useState("")
@@ -69,7 +70,7 @@ const Signup = () => {
   return (        
     <Grid className='container' container direction="column" justifyContent="center" alignItems="center">
          <Alert sx={{ mb: 2 }} severity="warning">
-          <b>Warning!</b> Please do not use any of your actual passwords or email to sign up. <b>The password you enter will be stored directly in the database.</b> Just create a simple dummy string for a password and email to test out this application.
+          <b>Warning!</b> Please do not use any of your actual passwords or email to sign up. <b>The password you enter will be stored directly in the database.</b> Just create a simple dummy string for  password and email to test out this application.
           </Alert>
         <Button><Link to='/Login'>Login</Link></Button>
         <Typography variant="h4" gutterBottom component="div">Sign Up</Typography>

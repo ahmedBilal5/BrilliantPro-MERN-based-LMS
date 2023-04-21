@@ -6,7 +6,7 @@ import { Button } from '@mui/material'
 import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+import {_URL} from '../../url.js'
 
 const UserListItem = (props) => {
 
@@ -14,8 +14,8 @@ const UserListItem = (props) => {
   var the_learner = {}
 
   const { CourseID } = useParams()
-  const url = 'http://localhost:4000/Courses/' + CourseID
-  const url2 = 'http://localhost:4000/Progresses/' + props.id + '/' + CourseID
+  const url = _URL +'Courses/' + CourseID
+  const url2 = _URL + 'Progresses/' + props.id + '/' + CourseID
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
@@ -50,11 +50,11 @@ const UserListItem = (props) => {
     //   console.log('delres', res)
     // })
     
-    await axios.put('http://localhost:4000/Courses/'+CourseID+'/learners', the_learner).then(res => {
+    await axios.put(_URL + 'Courses/'+CourseID+'/learners', the_learner).then(res => {
       console.log('Post Res', res)
     })
 
-    await axios.delete('http://localhost:4000/Progresses/'+props.id+'/'+CourseID).then(res => {
+    await axios.delete(_URL + 'Progresses/'+props.id+'/'+CourseID).then(res => {
       console.log('removed progress: ', res)
     })
 

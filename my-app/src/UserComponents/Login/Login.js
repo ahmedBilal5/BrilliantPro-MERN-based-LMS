@@ -9,7 +9,7 @@ import { FormControl, Alert, Collapse } from '@mui/material'
 import axios from 'axios'
 import {useNavigate }from 'react-router-dom'
 import '../Login/Login.css'
-
+import {_URL} from '../../url.js'
 const Login = () => {
   
   const [username, setUsername] = useState('')
@@ -37,7 +37,7 @@ const Login = () => {
       password: password
     }
 
-    // await axios.post('http://localhost:4000/Learners/login', body).then(res => {
+    // await axios.post('https://brilliantpro-backend.herokuapp.com/Learners/login', body).then(res => {
     //   console.log('res data password', res.data[0].password)
     //   console.log('res data username', res.data[0].username)
     //   console.log('res data id', res.data[0]._id)
@@ -58,7 +58,7 @@ const Login = () => {
     //   console.log('userid', user._id)
     // })
 
-    const res = await axios.post('http://localhost:4000/Learners/login', {username: username, password: password})
+    const res = await axios.post(_URL + 'Learners/login', {username: username, password: password})
     console.log('res', res.data)
     if (res.data.length != 0 && password === res.data[0].password && username === res.data[0].username){
       console.log('hereherhereh')

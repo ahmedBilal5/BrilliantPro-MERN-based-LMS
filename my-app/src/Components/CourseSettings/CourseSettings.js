@@ -11,7 +11,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Alert, Collapse, IconButton } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close';
+import {_URL} from '../../url.js'
 
 export default class CourseSettings extends Component {
   constructor(props){
@@ -27,8 +27,8 @@ export default class CourseSettings extends Component {
       delete_success: false,
       update_error: false
     }
-    this.url1 = `http://localhost:4000/Courses/`+ this.props.id
-    this.url2 = `http://localhost:4000/Courses/settings/update/`+ this.props.id
+    this.url1 = _URL + `Courses/`+ this.props.id
+    this.url2 = _URL + `Courses/settings/update/`+ this.props.id
   }
 
   componentDidMount(){

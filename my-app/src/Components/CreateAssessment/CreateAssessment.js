@@ -4,10 +4,8 @@ import CreateQuestion from '../CreateQuestion/CreateQuestion'
 import '../CreateCourse/CreateCourse.css'
 import axios from 'axios'
 import {Alert, Collapse, IconButton } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close';
 import { useParams } from 'react-router-dom'
-import { set } from 'date-fns'
-import { type } from '@testing-library/user-event/dist/type'
+import {_URL} from '../../url.js'
 
 const CreateAssessment = () => {
 
@@ -64,7 +62,7 @@ const CreateAssessment = () => {
         questions: questions
       }
   
-      await axios.put('http://localhost:4000/Courses/' + CourseID +'/addAssessment', Assessment).then(res => console.log('putted Assessment', res)).then(() => {setSuccess(true)
+      await axios.put(_URL + 'Courses/' + CourseID +'/addAssessment', Assessment).then(res => console.log('putted Assessment', res)).then(() => {setSuccess(true)
       setError(false)
       }).catch(err => console.log('error', err))
 

@@ -8,12 +8,12 @@ import { Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
-
+import {_URL} from '../../url.js'
 
 
 const RegisteredUsers = (props) => {
   const LearnersArray = []
-  let url = 'http://localhost:4000/Courses/'
+  let url = _URL + 'Courses/'
   let { CourseID } = useParams()
 
   const [learners,setLearners] = useState([])

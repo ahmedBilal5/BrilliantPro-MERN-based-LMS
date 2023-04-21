@@ -2,14 +2,16 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { Typography } from '@mui/material'
-import { List, ListItemAvatar, ListItemText, Paper } from '@mui/material'
-
+import { List, ListItemAvatar, ListItemText, Paper, Typorgraphy, LinearProgress } from '@mui/material'
+import { FlashOnRounded } from '@mui/icons-material'
+import {_URL} from '../../url.js'
 const Dashboard = () => {
   const { UserID } = useParams()
-  const url1 = 'http://localhost:4000/Learners/' + UserID
-  const url2 = 'http://localhost:4000/Progresses/learner/' + UserID
-  const url3 = 'http://localhost:4000/Courses/specific/' + UserID
+  const url1 = _URL +'Learners/' + UserID
+  const url2 = _URL + 'Progresses/learner/' + UserID
+  const url3 = _URL + 'Courses/specific/' + UserID
   const [learner, setLearner] = useState({})
+  const [loading, setLoading] = useState(false)
   const [progresses, setProgresses] = useState([])
   const [courses, setCourses] = useState([])
   const ProgressArray = []
@@ -24,8 +26,10 @@ const Dashboard = () => {
     })
     axios.get(url3).then(res => {
       setCourses(res.data)
+      setLoading(false)
     })
 
+    setLoading(true)
   }, [])
 
   const merge = () => {
@@ -70,13 +74,22 @@ const Dashboard = () => {
 
   return (
     <>
-    <div style={{'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'center', 'gap': '20%'}}>
-      <Typography variant='h3'> Welcome, {learner.name} </Typography>
-    </div>
-    <List>
-        {getCourseProgresses()}
-    </List>
-    </>
+    {loading ?
+      <div>
+        <Typography variant='h5' style={{textAlign:'center'}}>Please wait as the data loads</Typography>
+        <LinearProgress/>
+      </div>
+      :
+      <>
+      <div style={{'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'center', 'gap': '20%'}}>
+        <Typography variant='h3'> Welcome, {learner.name} </Typography>
+      </div>
+      <List>
+          {getCourseProgresses()}
+      </List>
+      </>
+    }
+    </> 
   )
 }
 

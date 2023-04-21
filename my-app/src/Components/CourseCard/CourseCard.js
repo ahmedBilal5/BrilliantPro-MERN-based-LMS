@@ -1,5 +1,4 @@
 import React from 'react'
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -11,7 +10,7 @@ const CourseCard = (props) => {
   return (
     <>
     <Card sx={{ maxWidth: 345 }}>
-        <CardMedia component="img" height="140" image={'http://localhost:4000/' + props.image}/>
+        <CardMedia component="img" height="140" image={props.image}/>
         <CardContent>
             <Typography variant='h5'>
                 {props.name}

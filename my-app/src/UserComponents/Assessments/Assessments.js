@@ -1,20 +1,24 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Button, List, ListItem, ListItemText, Paper, Divider} from '@mui/material'
+import { Button, List, ListItem, ListItemText, Paper, Divider, Typography, LinearProgress} from '@mui/material'
+import {_URL} from '../../url.js'
 
 const Assessments = () => {
    const { CourseID } = useParams()
    const { UserID } = useParams()
    var AssessmentArray = []
    const [Assessments, setAssessments] = useState([])
+   const [loading, setLoading] = useState(false)
 
    useEffect( () => {
-       axios.get('http://localhost:4000/Courses/' + CourseID + '/Assessments').then(res => {
+       axios.get(_URL + 'Courses/' + CourseID + '/Assessments').then(res => {
             console.log('This is the respose data', res.data)
+            setLoading(false)
             setAssessments(res.data)
             console.log('These are the Assessments',Assessments)
        })
+       setLoading(true)
    }, [])
 
    const showAssessments = () => {
@@ -39,13 +43,20 @@ const Assessments = () => {
 
 
   return (
-    <>
-    <Paper style={{height:'70vh', maxHeight:'70vh', overflow:'auto'}}>
-        <List>
-        {showAssessments()}
-        </List>
-    </Paper>
-    
+   <>
+    {loading ? 
+        <div>
+            <Typography variant='h5' style={{textAlign:'center'}}>Please wait as the assessments load</Typography>
+            <LinearProgress />
+        </div>:
+        <>
+        <Paper style={{height: '60vh', maxHeight: '60vh',overflow: 'auto'}}>
+            <List>
+                {showAssessments()}
+            </List>
+        </Paper>
+        </>
+    }
     </>
   )
 }

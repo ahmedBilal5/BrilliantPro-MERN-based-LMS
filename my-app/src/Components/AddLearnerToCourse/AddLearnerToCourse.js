@@ -5,12 +5,12 @@ import { useParams } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { FormControl, Alert, Snackbar } from '@mui/material'
 import axios from 'axios'
-
+import {_URL} from '../../url.js'
 
 
 const AddLearnerToCourse = () => {
 
-  let url = 'http://localhost:4000/Learners'
+  let url = _URL + 'Learners'
   let { CourseID } = useParams()
   const LearnersArray = []
   const [learners,setLearners] = useState([])
@@ -53,7 +53,7 @@ const AddLearnerToCourse = () => {
     }).catch(err => console.log(err))
     
 
-    axios.get('http://localhost:4000/Courses/'+ CourseID).then(res => {
+    axios.get(_URL + 'Courses/'+ CourseID).then(res => {
       setEnrolled(res.data.learners)
       setCourse(res.data)
     }).catch(err => console.log(err))
@@ -138,7 +138,7 @@ const AddLearnerToCourse = () => {
     
 
 
-    await axios.put('http://localhost:4000/Courses/'+ CourseID, course).then(res => {
+    await axios.put(_URL + 'Courses/'+ CourseID, course).then(res => {
       console.log('putres', res)
     })
     const progress = {
@@ -147,7 +147,7 @@ const AddLearnerToCourse = () => {
       progress_value: 0
     }
     //setCourse(course)
-    await axios.post('http://localhost:4000/Progresses', progress).then(res => {
+    await axios.post(_URL + 'Progresses', progress).then(res => {
       console.log('progresspost', res)
     })
     

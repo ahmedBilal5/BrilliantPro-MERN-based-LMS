@@ -5,7 +5,7 @@ import {useEffect, useState} from 'react'
 import axios from 'axios'
 import Assessments from '../Assessments/Assessments'
 import Timer from '../ReusableComponents/Timer/Timer' 
-
+import {_URL} from '../../url.js'
 const UserAssessment = () => {
     const { CourseID } = useParams()
     const { UserID } = useParams()
@@ -20,8 +20,8 @@ const UserAssessment = () => {
     // const [rem, setRem] = useState(0)
 
 
-    const url = 'http://localhost:4000/Courses/'+ CourseID + '/Assessments/' + AssessmentID
-    const url2 = 'http://localhost:4000/Courses/'+ CourseID + '/Assessments/' + AssessmentID + '/qs'
+    const url = _URL + 'Courses/'+ CourseID + '/Assessments/' + AssessmentID
+    const url2 = _URL + 'Courses/'+ CourseID + '/Assessments/' + AssessmentID + '/qs'
     useEffect(() => {
         axios.get(url).then(res => {
             console.log('This is the respose data', res.data)
@@ -115,7 +115,7 @@ const UserAssessment = () => {
             points: reward
         }
 
-        // await axios.put('http://localhost:4000/Progresses/' + UserID + '/' + CourseID,body).then(res => {
+        // await axios.put('https://brilliantpro-backend.herokuapp.com/Progresses/' + UserID + '/' + CourseID,body).then(res => {
         //     console.log('updating progress', res)
         // }).catch(err => console.log(err))
         updateProgress(body)
@@ -132,7 +132,7 @@ const UserAssessment = () => {
     }
 
     const updateProgress = async (body) => {
-        return await axios.put('http://localhost:4000/Progresses/' + UserID + '/' + CourseID,body)
+        return await axios.put(_URL + 'Progresses/' + UserID + '/' + CourseID,body)
     }
   return (
      <>
